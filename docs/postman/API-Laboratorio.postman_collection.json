@@ -1,0 +1,141 @@
+{
+  "info": {
+    "_postman_id": "d913e1e9-3ac3-4ad9-bdf4-a7b5d17cb906",
+    "name": "API Laboratório de Ensaios",
+    "description": "Coleção com as 15 rotas CRUD da API. Execute cada pasta de cima para baixo; os IDs são guardados automaticamente após o cadastro.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "ensaioId", "value": "" },
+    { "key": "equipamentoId", "value": "" },
+    { "key": "analistaId", "value": "" }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const esperados = {",
+          "  'Cadastrar ensaio': 201, 'Listar ensaios': 200, 'Buscar ensaio por ID': 200, 'Atualizar ensaio parcialmente': 200, 'Excluir ensaio': 200,",
+          "  'Cadastrar equipamento': 201, 'Listar equipamentos': 200, 'Buscar equipamento por ID': 200, 'Atualizar equipamento parcialmente': 200, 'Excluir equipamento': 200,",
+          "  'Cadastrar analista': 201, 'Listar analistas': 200, 'Buscar analista por ID': 200, 'Atualizar analista parcialmente': 200, 'Excluir analista': 200",
+          "};",
+          "pm.test('Status HTTP esperado', function () { pm.response.to.have.status(esperados[pm.info.requestName]); });",
+          "pm.test('Resposta em JSON', function () { pm.response.to.be.json; });"
+        ]
+      }
+    }
+  ],
+  "item": [
+    {
+      "name": "Ensaios",
+      "item": [
+        {
+          "name": "Cadastrar ensaio",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.collectionVariables.set('ensaioId', pm.response.json().data.id_ensaio);"] } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Ensaio de dureza\",\n  \"norma\": \"ISO 6508\",\n  \"status\": \"Ativo\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/ensaio"
+          }
+        },
+        {
+          "name": "Listar ensaios",
+          "request": { "method": "GET", "url": "{{baseUrl}}/ensaio" }
+        },
+        {
+          "name": "Buscar ensaio por ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/ensaio/{{ensaioId}}" }
+        },
+        {
+          "name": "Atualizar ensaio parcialmente",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"Em revisão\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/ensaio/{{ensaioId}}"
+          }
+        },
+        {
+          "name": "Excluir ensaio",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/ensaio/{{ensaioId}}" }
+        }
+      ]
+    },
+    {
+      "name": "Equipamentos",
+      "item": [
+        {
+          "name": "Cadastrar equipamento",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.collectionVariables.set('equipamentoId', pm.response.json().data.id_equipamento);"] } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Durômetro\",\n  \"patrimonio\": \"PAT-001\",\n  \"situacao\": \"Disponível\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/equipamento"
+          }
+        },
+        {
+          "name": "Listar equipamentos",
+          "request": { "method": "GET", "url": "{{baseUrl}}/equipamento" }
+        },
+        {
+          "name": "Buscar equipamento por ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/equipamento/{{equipamentoId}}" }
+        },
+        {
+          "name": "Atualizar equipamento parcialmente",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"situacao\": \"Em manutenção\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/equipamento/{{equipamentoId}}"
+          }
+        },
+        {
+          "name": "Excluir equipamento",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/equipamento/{{equipamentoId}}" }
+        }
+      ]
+    },
+    {
+      "name": "Analistas",
+      "item": [
+        {
+          "name": "Cadastrar analista",
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.collectionVariables.set('analistaId', pm.response.json().data.id_analista);"] } }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Ana Silva\",\n  \"registro\": \"CRQ-12345\",\n  \"especialidade\": \"Metalurgia\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/analista"
+          }
+        },
+        {
+          "name": "Listar analistas",
+          "request": { "method": "GET", "url": "{{baseUrl}}/analista" }
+        },
+        {
+          "name": "Buscar analista por ID",
+          "request": { "method": "GET", "url": "{{baseUrl}}/analista/{{analistaId}}" }
+        },
+        {
+          "name": "Atualizar analista parcialmente",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"especialidade\": \"Química analítica\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": "{{baseUrl}}/analista/{{analistaId}}"
+          }
+        },
+        {
+          "name": "Excluir analista",
+          "request": { "method": "DELETE", "url": "{{baseUrl}}/analista/{{analistaId}}" }
+        }
+      ]
+    }
+  ]
+}
