@@ -26,7 +26,7 @@ app.use((erro, _req, res, _next) => {
 });
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const porta = Number(process.env.PORT || 3000);
+  const porta = Number(process.env.PORT || 3001);
   app.listen(porta, () => {
     console.log(`API disponível em http://localhost:${porta}`);
   });
